@@ -1,0 +1,33 @@
+name: Actualizar Portfolio Diariamente
+
+on:
+  schedule:
+    # Se ejecuta todos los días a las 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Te permite ejecutarlo manualmente desde GitHub si tienes prisa
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clonar el repositorio
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Instalar librerías necesarias
+      run: |
+        pip install requests beautifulsoup4
+
+    - name: Ejecutar el script de escaneo
+      run: python update_portfolio.py
+
+    - name: Guardar cambios y subirlos al repositorio
+      run: |
+        git config --global user.name 'GitHub Action Bot'
+        git config --global user.email 'action@github.com'
+        git add portfolio.html
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Actualización automática del catálogo diario" && git push)
