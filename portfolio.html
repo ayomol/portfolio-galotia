@@ -1,1 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio de Cervezas - Galotia Brewing</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@500;700&display=swap');
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #121212; color: #ffffff; line-height: 1.6; }
+        
+        header { background-color: #0a0a0a; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f39c12; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 24px; font-weight: 700; color: #f39c12; text-transform: uppercase; letter-spacing: 2px; }
+        nav a { color: #ffffff; text-decoration: none; margin-left: 20px; text-transform: uppercase; font-size: 14px; font-weight: 700; transition: color 0.3s; }
+        nav a:hover { color: #f39c12; }
+
+        .hero { background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1566633806327-68e152aaf26d?auto=format&fit=cover&w=1200&q=80') no-repeat center center/cover; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .hero h1 { font-family: 'Oswald', sans-serif; font-size: 48px; text-transform: uppercase; color: #ffffff; letter-spacing: 3px; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #cccccc; max-width: 600px; }
+
+        .portfolio-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+
+        .product-card { background-color: #1a1a1a; border-radius: 8px; overflow: hidden; border: 1px solid #333333; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); border-color: #f39c12; }
+        .product-image { width: 100%; height: 320px; background-color: #252525; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .product-image img { width: auto; height: 90%; object-fit: contain; transition: transform 0.3s; }
+        .product-card:hover .product-image img { transform: scale(1.05); }
+        
+        .product-info { padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; }
+        .product-tag { font-size: 11px; text-transform: uppercase; background-color: #f39c12; color: #000000; padding: 3px 8px; font-weight: 700; border-radius: 4px; align-self: center; margin-bottom: 10px; }
+        .product-title { font-family: 'Oswald', sans-serif; font-size: 20px; text-transform: uppercase; margin-bottom: 8px; color: #ffffff; letter-spacing: 1px; }
+        
+        /* ¡NUEVO! Estilos para la descripción corta de WooCommerce */
+        .product-description { font-size: 13px; color: #bbbbbb; text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #333333; line-height: 1.4; }
+        .product-description p { margin-bottom: 5px; }
+
+        footer { background-color: #0a0a0a; padding: 40px 20px; text-align: center; border-top: 1px solid #333333; margin-top: 50px; font-size: 14px; color: #666666; }
+        footer a { color: #f39c12; text-decoration: none; }
+        
+        @media (max-width: 768px) { header { flex-direction: column; padding: 20px; } nav { margin-top: 15px; } .hero h1 { font-size: 36px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Galotia Brewing</div>
+        <nav>
+            <a href="https://galotiabrewing.com/">Inicio</a>
+            <a href="https://galotiabrewing.com/categoria-producto/cervezas/">Tienda</a>
+            <a href="#portfolio">Nuestro Portfolio</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Nuestras Creaciones</h1>
+        <p>Una selección exclusiva de cervezas artesanales hechas con pasión, carácter y un cariño especial por las mejores recetas.</p>
+    </div>
+
+    <div class="portfolio-container" id="portfolio">
+        <div class="grid">
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2023/07/FTA-again-44cl-black.webp" alt="FTA Again – East Coast IPA – 44cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / IPA</span>
+                    <h2 class="product-title">FTA Again – East Coast IPA – 44cl</h2>
+                    <div class="product-description">
+                        <ul>
+<li>NEIPA</li>
+<li>6,2% Alc./Vol.</li>
+<li>Simcoe, Mosaic y Cascade</li>
+<li>30 IBUs</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2026/06/one-draw-hazy-DIPA.webp" alt="One Draw – HAZY DIPA – (44cl)">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / IPA</span>
+                    <h2 class="product-title">One Draw – HAZY DIPA – (44cl)</h2>
+                    <div class="product-description">
+                        <ul>
+<li>8% Vol.</li>
+<li>45 IBUs</li>
+<li>Lúpulos: El Dorado, Galaxy y Ekuanot</li>
+<li>Maltas: pale, dextrin, trigo y avena.</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2026/05/wild-rover3.jpg" alt="Wild Rover – Fruit Sour Ale – 44cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas</span>
+                    <h2 class="product-title">Wild Rover – Fruit Sour Ale – 44cl</h2>
+                    <div class="product-description">
+                        <ul>
+<li>5,5% Alc./Vol.</li>
+<li>7 IBUs</li>
+<li>Maltas: Trigo.</li>
+<li>Frutas: Piña, fresa y vainilla.</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2026/05/pull-up-webp.webp" alt="Pull Up – HAZY IPA – 44cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / IPA</span>
+                    <h2 class="product-title">Pull Up – HAZY IPA – 44cl</h2>
+                    <div class="product-description">
+                        <ul>
+<li>6% Vol.</li>
+<li>24 IBUs</li>
+<li>Lúpulos: El Dorado, Krush, Simcoe</li>
+<li>Maltas: Pale, Dextrin, Avena, Trigo</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2026/04/verso-libre-vaso-webp2.webp" alt="Verso libre – Modern IPA (44cl)">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">IPA</span>
+                    <h2 class="product-title">Verso libre – Modern IPA (44cl)</h2>
+                    <div class="product-description">
+                        <ul>
+<li class="CDt4Ke zfr3Q" dir="ltr">
+<p class="CDt4Ke zfr3Q" dir="ltr">Modern IPA</p>
+</li>
+<li class="CDt4Ke zfr3Q" dir="ltr">
+<p class="CDt4Ke zfr3Q" dir="ltr">6,4% Alc./Vol. 35 IBUs</p>
+</li>
+<li class="CDt4Ke zfr3Q" dir="ltr">
+<p class="CDt4Ke zfr3Q" dir="ltr">Lúpulos:  Nectaron, Simcoe y Nelson Sauvin</p>
+</li>
+<li class="CDt4Ke zfr3Q" dir="ltr">
+<p class="CDt4Ke zfr3Q" dir="ltr">Maltas: Pale, trigo y avena.</p>
+</li>
+</ul>
+<p> </p>
+<p> </p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2026/04/enragement.webp" alt="Enragement – HAZY IPA – 44cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / IPA</span>
+                    <h2 class="product-title">Enragement – HAZY IPA – 44cl</h2>
+                    <div class="product-description">
+                        <ul>
+<li>5,8% Vol.</li>
+<li>25 IBUs</li>
+<li>Lúpulos: Azzaca, Kush, BRU – 1</li>
+<li>Maltas: Pale, Dextrin, Avena.</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2023/11/outsiders-1.jpg" alt="OUTSIDERS – Red Berries Imperial Sour Porter – (330ml)">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / Sour ale</span>
+                    <h2 class="product-title">OUTSIDERS – Red Berries Imperial Sour Porter – (330ml)</h2>
+                    <div class="product-description">
+                        <ul>
+<li>9,2% vol</li>
+<li>25 IBUs</li>
+<li>Imperial Sour Porter con frutos rojos (grosellas, grosellas negras, arándanos y frambuesas)</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2024/07/Comandante-lenni_44cl.webp" alt="Comandante Lenni – Ordinary Bitter – 44cl.">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas</span>
+                    <h2 class="product-title">Comandante Lenni – Ordinary Bitter – 44cl.</h2>
+                    <div class="product-description">
+                        <ul class="n8H08c UVNKR">
+<li class="TYR86d wXCUfe zfr3Q" dir="ltr">
+<p class="CDt4Ke zfr3Q" dir="ltr"><strong>3,2</strong><strong>% Alc./Vol. 29</strong> <strong>IBUs</strong></p>
+</li>
+<li class="TYR86d wXCUfe zfr3Q" dir="ltr">
+<p class="CDt4Ke zfr3Q" dir="ltr">Lúpulos: Cascade, Amarillo, East Kent Goldings.</p>
+</li>
+<li class="TYR86d wXCUfe zfr3Q" dir="ltr">
+<p class="CDt4Ke zfr3Q" dir="ltr">Maltas: Pale, Amber, Crystal T50, Dextrin.</p>
+</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2023/03/manifest-33cl.jpg" alt="Manifest – Table beer – 33 cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / Core range / Table beer</span>
+                    <h2 class="product-title">Manifest – Table beer – 33 cl</h2>
+                    <div class="product-description">
+                        <p><strong>Alc: 3.7% IBU: 20</strong></p>
+<ul>
+<li>Lúpulos: Chinook, Cascade, Simcoe.</li>
+<li>Maltas: Pale, Amber.</li>
+<li>Sin gluten</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2023/03/Bodhran-33cl.jpg" alt="BODHRÁN – Red ALE – 33 cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / Core range / Red ale</span>
+                    <h2 class="product-title">BODHRÁN – Red ALE – 33 cl</h2>
+                    <div class="product-description">
+                        <ul>
+<li><strong>Alc: 4.1% IBU: 24</strong></li>
+<li>Lúpulos: Endevour, Cascade, Mosaic</li>
+<li>Maltas: Pale, Crystal 120, Carared, Roasted Barley</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2023/03/Can-Mockup-33cl.jpg" alt="Ska – Coffee porter – 33 cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / coffee porter / Core range</span>
+                    <h2 class="product-title">Ska – Coffee porter – 33 cl</h2>
+                    <div class="product-description">
+                        <ul>
+<li><strong>Alc: 6.5% IBU: 24</strong></li>
+<li>Lúpulos: Endevour, Chinook.</li>
+<li>Maltas: Pale, chocolate, Crystal 120, carared, black, avena.</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://galotiabrewing.com/wp-content/uploads/2023/03/122-33cl.jpg" alt="122 – IPA – 33 cl">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">Cervezas / Core range / IPA</span>
+                    <h2 class="product-title">122 – IPA – 33 cl</h2>
+                    <div class="product-description">
+                        <ul>
+<li><strong>Alc: 6.5%  IBU: 48</strong></li>
+<li>Maltas: Pale, Caramalt, avena</li>
+<li>Lúpulos: Huel Mellon, Citra, Chinook y Ekuanot</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Galotia Brewing</strong> - Calle de Escorial, 17, 35110 Vecindario, Gran Canaria, Las Palmas</p>
+        <p>Tel: +34 828 664 897 | Email: <a href="mailto:info@galotiabrewing.com">info@galotiabrewing.com</a></p>
+        <p style="margin-top: 20px;">&copy; 2026 Galotia Brewing. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
