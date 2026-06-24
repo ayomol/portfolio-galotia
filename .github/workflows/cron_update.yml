@@ -9,9 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # 👇 Otorga permisos de escritura para poder hacer el git push sin error 403
+    permissions:
+      contents: write
+
     steps:
     - name: Clonar el repositorio
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Configurar Python
       uses: actions/setup-python@v4
@@ -29,5 +34,6 @@ jobs:
       run: |
         git config --global user.name 'GitHub Action Bot'
         git config --global user.email 'action@github.com'
-        git add portfolio.html
+        # 👇 Cambiado para que incluya tanto el HTML como la nueva carpeta de imágenes
+        git add .
         git diff --quiet && git diff --staged --quiet || (git commit -m "Actualización automática del catálogo diario" && git push)
