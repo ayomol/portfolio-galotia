@@ -10,7 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # 👇 Otorga permisos de escritura para poder hacer el git push sin error 403
     permissions:
       contents: write
 
@@ -34,6 +33,10 @@ jobs:
       run: |
         git config --global user.name 'GitHub Action Bot'
         git config --global user.email 'action@github.com'
-        # 👇 Cambiado para que incluya tanto el HTML como la nueva carpeta de imágenes
         git add .
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Actualización automática del catálogo diario" && git push)
+        # 👇 Si hay cambios, hace commit, baja lo remoto reorganizando el historial y empuja de forma segura
+        git diff --quiet && git diff --staged --quiet || (
+          git commit -m "Actualización automática del catálogo diario"
+          git pull --rebase origin main
+          git push origin main
+        )
