@@ -1,10 +1,16 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 import time
+from urllib.parse import urlparse
 
 # Configuración inicial
 base_url = "https://galotiabrewing.com/categoria-producto/cervezas/"
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+
+# NUEVO: Definir y crear la carpeta local para almacenar las imágenes
+img_dir = "assets/img/beers"
+os.makedirs(img_dir, exist_ok=True)
 
 print("Iniciando el escaneo profundo de Galotia Brewing...")
 
@@ -23,6 +29,13 @@ print(f"Se han encontrado {len(product_links)} cervezas. Escaneando páginas ind
 
 html_cards = ""
 
+# Función auxiliar para limpiar el nombre del archivo (reemplazo simple de slugify)
+def limpiar_nombre_archivo(nombre):
+    nombre = nombre.lower()
+    for cambia in [(" ", "-"), ("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u"), ("ñ", "n"), ("/", "-")]:
+        nombre = nombre.replace(cambia[0], cambia[1])
+    return "".join([c for c in nombre if c.isalnum() or c == '-'])
+
 # 3. Visitar cada página de producto uno por uno
 for url in product_links:
     print(f"-> Extrayendo datos de: {url}")
@@ -36,22 +49,48 @@ for url in product_links:
         
         # Extraer imagen en alta calidad
         img_tag = prod_soup.select_one('meta[property="og:image"]')
-        img_url = img_tag['content'] if img_tag and img_tag.has_attr('content') else "https://via.placeholder.com/200x300/252525/f39c12?text=Sin+Imagen"
+        img_url = img_tag['content'] if img_tag and img_tag.has_attr('content') else None
+        
+        # NUEVO: Lógica de descarga local de la imagen
+        if img_url and not img_url.startswith("https://via.placeholder.com"):
+            try:
+                # Extraer la extensión original (.webp, .jpg, etc.)
+                ext = os.path.splitext(urlparse(img_url).path)[1]
+                if not ext:
+                    ext = ".webp"
+                
+                # Crear nombre e itinerario de guardado local
+                nombre_limpio = limpiar_nombre_archivo(title)
+                nombre_archivo = f"{nombre_limpio}{ext}"
+                ruta_local_guardado = os.path.join(img_dir, nombre_archivo)
+                
+                # Descargar el binario de la imagen
+                img_data = requests.get(img_url, headers=headers).content
+                with open(ruta_local_guardado, 'wb') as f_img:
+                    f_img.write(img_data)
+                
+                # Asignar la ruta local para el atributo src del HTML
+                img_src_html = f"assets/img/beers/{nombre_archivo}"
+                print(f"   [Imagen guardada]: {img_src_html}")
+            except Exception as e_img:
+                print(f"   [Error descargando imagen]: {e_img}. Usando url original.")
+                img_src_html = img_url if img_url else "https://via.placeholder.com/200x300/252525/f39c12?text=Sin+Imagen"
+        else:
+            img_src_html = "https://via.placeholder.com/200x300/252525/f39c12?text=Sin+Imagen"
         
         # Extraer categoría (Ej: Hazy IPA, Core Range...)
         cat_tags = prod_soup.select('.product_meta .posted_in a')
         categories = " / ".join([cat.text for cat in cat_tags]) if cat_tags else "Craft Beer"
         
-        # ¡NUEVO! Extraer la descripción corta (Alcohol, lúpulos, etc.)
+        # Extraer la descripción corta
         desc_tag = prod_soup.select_one('div.woocommerce-product-details__short-description')
-        # Usamos decode_contents() para mantener los saltos de línea y negritas originales de WooCommerce
         short_desc = desc_tag.decode_contents().strip() if desc_tag else "<p>Disfruta de nuestra cerveza artesanal.</p>"
         
-        # Generar la tarjeta HTML
+        # Generar la tarjeta HTML (Ahora usa img_src_html con la ruta local)
         html_cards += f"""
             <div class="product-card">
                 <div class="product-image">
-                    <img src="{img_url}" alt="{title}">
+                    <img src="{img_src_html}" alt="{title}">
                 </div>
                 <div class="product-info">
                     <span class="product-tag">{categories}</span>
@@ -103,7 +142,6 @@ html_content = f"""<!DOCTYPE html>
         .product-tag {{ font-size: 11px; text-transform: uppercase; background-color: #f39c12; color: #000000; padding: 3px 8px; font-weight: 700; border-radius: 4px; align-self: center; margin-bottom: 10px; }}
         .product-title {{ font-family: 'Oswald', sans-serif; font-size: 20px; text-transform: uppercase; margin-bottom: 8px; color: #ffffff; letter-spacing: 1px; }}
         
-        /* ¡NUEVO! Estilos para la descripción corta de WooCommerce */
         .product-description {{ font-size: 13px; color: #bbbbbb; text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #333333; line-height: 1.4; }}
         .product-description p {{ margin-bottom: 5px; }}
 
